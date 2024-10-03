@@ -13,7 +13,7 @@ void draw_board(char board[3][3]) { //function to create the tic-tac-toe board
     }
 }
 
-int check_win(char player, char board[3][3]) { //function to check if player won
+bool check_win(char player, char board[3][3]) { //function to check if player won
     for (int i = 0; i < 3; i++) {
         if (board[i][0] == player && board[i][1] == player && board[i][2] == player) {
             return true;
@@ -29,6 +29,17 @@ int check_win(char player, char board[3][3]) { //function to check if player won
         return true;
     }
     return false;
+}
+
+bool check_tie(char board[3][3]) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (board[i][j] == ' ') {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 int main() {
@@ -65,6 +76,10 @@ int main() {
             cout << "\nPlayer X won!";
             break;
         }
+        if (check_tie(board)) {
+            cout << "\n It's a tie!";
+            break;
+        }
 
         while (true) { //Player O turn
             cout << "Player O (Rows and Columns (0-2)):\n";
@@ -78,7 +93,6 @@ int main() {
             else {
                 break;
             }
-
         }
         board[row][column] = player2;
         draw_board(board);
@@ -87,6 +101,11 @@ int main() {
             cout << "\nPlayer O won!";
             break;
         }
+        if (check_tie(board)) {
+            cout << "\n It's a tie!";
+            break;
+        }
+
     }
 
     return 0;
